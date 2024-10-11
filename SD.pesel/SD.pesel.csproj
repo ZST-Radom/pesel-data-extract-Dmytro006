@@ -7,4 +7,8 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <Compile Include="C:\Users\Chornovol.Dmytro\Saved Games\pesel-data-extract-Dmytro006\PersonId.cs" Link="PersonId.cs" />
+  </ItemGroup>
+
 </Project>

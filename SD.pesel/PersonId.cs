@@ -14,7 +14,17 @@ public class PersonId
     /// <returns></returns>
     public int GetYear()
     {
-        return 0;
+        int year = int.Parse(_id.Substring(0, 2));
+        int month = int.Parse(_id.Substring(2, 2));
+        if (month >= 1 && month <= 12)
+        {
+            year += 1900;
+        }
+        else if (month >= 21 && month <= 32)
+        {
+            year += 2000;
+        }
+        return year;
     }
 
     /// <summary>
@@ -22,7 +32,19 @@ public class PersonId
     /// </summary>
     public int GetMonth()
     {
-        return 0;
+       int month20 = 0;
+        int month = int.Parse(_id.Substring(2, 2));
+        if (month >= 21)
+        {
+            month20 = month - 20;
+            string month21 = month20.ToString();
+            string month22 = '0' + month21;
+            int month23 = Convert.ToInt32(month22);
+            return month23;
+        }
+        else {
+            return int.Parse(month.ToString("D2"));
+        }
     }
 
     /// <summary>
@@ -31,7 +53,8 @@ public class PersonId
     /// <returns></returns>
     public int GetDay()
     {
-        return 0;
+        int day = int.Parse(_id.Substring(4, 2));
+        return day;
     }
 
     /// <summary>
@@ -40,7 +63,18 @@ public class PersonId
     /// <returns></returns>
     public int GetYearOfBirth()
     {
-        return 0;
+        int year = int.Parse(_id.Substring(0, 2));
+        int month = int.Parse(_id.Substring(2, 2));
+        if (month >= 1 && month <= 12)
+        {
+            year += 1900;
+        }
+        else if (month >= 21 && month <= 32)
+        {
+            year += 2000;
+        }
+        int masz = 2024 - year;
+        return masz;
     }
 
     /// <summary>
@@ -50,7 +84,8 @@ public class PersonId
     /// <returns>f</returns>
     public string GetGender()
     {
-        return "";
+        int genderDigit = int.Parse(_id.Substring(9, 1));
+        return genderDigit % 2 == 0 ? "f" : "m";
     }
 
     /// <summary>
@@ -59,6 +94,27 @@ public class PersonId
     /// <returns></returns>
     public bool IsValid()
     {
-        return true;
+       
+        if (_id.Length != 11)
+        {
+            return false;
+        }
+
+       
+        int[] weights = { 1, 3, 7, 9, 1, 3, 7, 9, 1, 3 };
+
+        int sum = 0;
+
+        
+        for (int i = 0; i < 10; i++)
+        {
+            sum += weights[i] * int.Parse(_id[i].ToString());
+        }
+
+       
+        int controlDigit = (10 - (sum % 10)) % 10;
+
+        
+        return controlDigit == int.Parse(_id[10].ToString());
     }
 }
